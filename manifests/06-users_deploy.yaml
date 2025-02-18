@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-deploy
+  template:
+    metadata:
+      labels:
+        app: users-deploy
+    spec:
+      containers:
+      - name: users-deploy
+        image: stepigor/ot7users:arm
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: users-config
+              key: DB_HOST
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: users-config
+              key: DB_USER
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: users-config
+              key: DB_NAME
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: users-config
+              key: DB_PORT
+        - name: APP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: users-config
+              key: APP_PORT
+        - name: JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: users-config
+              key: JWT_SECRET
+        - name: BILLING_SVC_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: users-config
+              key: BILLING_SVC_PORT
+        - name: DB_PSWD
+          valueFrom:
+            secretKeyRef:
+              name: db-password
+              key: POSTGRES_PASSWORD
