@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: users-deploy
-        image: stepigor/ot7users:arm
+        image: stepigor/ot7users:latest
         ports:
         - containerPort: 8080
         env:

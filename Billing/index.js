@@ -101,7 +101,7 @@ app.post("/charge", async (req, res) => {
         userId,
         Text: `Не удалось оплатить заказ №${orderId} на сумму ${amount}₽. На вашем счету недостаточно средств (баланс: ${queryResult.rows[0].amount}₽).`,
       });
-      res.status(500).json({ error: "Недостаточно средств" });
+      res.status(400).json({ error: "Недостаточно средств" });
       return;
     }
     await pool.query("UPDATE accounts SET Amount = Amount - $1 WHERE ID = $2", [
@@ -140,6 +140,19 @@ app.post("/topup", authenticateToken, async (req, res) => {
       [amount, userId]
     );
     res.status(200).json(newAmountData.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Внутренняя ошибка сервера" });
+  }
+});
+
+app.get("/balance", authenticateToken, async (req, res) => {
+  // Доступен для клиентов
+  try {
+    const amount = await pool
+      .query("SELECT Amount FROM accounts WHERE ID = $1", [req.user.id])
+      .then((res) => res.rows[0].amount);
+    res.status(200).json({ amount });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Внутренняя ошибка сервера" });

@@ -32,7 +32,7 @@ app.post("/register", async (req, res) => {
       .then((res) => res.rows[0]);
     if (alreadyExistsUser) {
       return res
-        .status(500)
+        .status(400)
         .json({ error: "Пользователь с таким именем уже зарегистрирован" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);

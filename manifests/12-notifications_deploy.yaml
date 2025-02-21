@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: notifications-deploy
-        image: stepigor/ot7notifications:arm
+        image: stepigor/ot7notifications:latest
         ports:
         - containerPort: 8080
         env:

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: orders-deploy
-        image: stepigor/ot7orders:arm
+        image: stepigor/ot7orders:latest
         ports:
         - containerPort: 8080
         env:
