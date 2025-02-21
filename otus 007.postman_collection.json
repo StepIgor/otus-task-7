@@ -233,7 +233,11 @@
 							"",
 							"// Логирование данных ответа",
 							"console.log(\"Response Status:\", pm.response.status);",
-							"console.log(\"Response Body:\", pm.response.text());"
+							"console.log(\"Response Body:\", pm.response.text());",
+							"",
+							"pm.test('Ожидаем, пока RabbitMQ-сообщение будет обработано сервисом Уведомлений', (done) => {",
+							"    setTimeout(() => {done();}, 7500);",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -391,7 +395,11 @@
 							"",
 							"// Логирование данных ответа",
 							"console.log(\"Response Status:\", pm.response.status);",
-							"console.log(\"Response Body:\", pm.response.text());"
+							"console.log(\"Response Body:\", pm.response.text());",
+							"",
+							"pm.test('Ожидаем, пока RabbitMQ-сообщение будет обработано сервисом Уведомлений', (done) => {",
+							"    setTimeout(() => {done();}, 7500);",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
