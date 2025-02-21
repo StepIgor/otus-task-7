@@ -1,0 +1,598 @@
+{
+	"info": {
+		"_postman_id": "1c731f09-cc74-4695-a630-b2bb0b6e785a",
+		"name": "otus 007",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25405563"
+	},
+	"item": [
+		{
+			"name": "register user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"console.log(\"Request Body:\", pm.request.body.raw);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{user_name}}\",\n    \"password\": \"{{user_pswd}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"console.log(\"Request Body:\", pm.request.body.raw);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());",
+							"",
+							"// Сохраняем токен в переменную окружения",
+							"pm.collectionVariables.set(\"jwt_token\", pm.response.json().token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{user_name}}\",\n    \"password\": \"{{user_pswd}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/billing/balance",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"billing",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "topup balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"console.log(\"Request Body:\", pm.request.body.raw);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": {{topup_sum}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/billing/topup",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"billing",
+						"topup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create valid order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"console.log(\"Request Body:\", pm.request.body.raw);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": {{first_order_sum}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user balance 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/billing/balance",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"billing",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user notifications",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "arch.homework/notifications/notifications",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"notifications",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create invalid order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"console.log(\"Request Body:\", pm.request.body.raw);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": {{second_order_sum}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user balance 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/billing/balance",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"billing",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user notifications 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Логирование данных запроса",
+							"console.log(\"Request URL:\", pm.request.url.toString());",
+							"console.log(\"Request Method:\", pm.request.method);",
+							"",
+							"// Логирование данных ответа",
+							"console.log(\"Response Status:\", pm.response.status);",
+							"console.log(\"Response Body:\", pm.response.text());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "arch.homework/notifications/notifications",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"notifications",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "arch.homework",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "none",
+			"type": "string"
+		},
+		{
+			"key": "topup_sum",
+			"value": "10000",
+			"type": "string"
+		},
+		{
+			"key": "first_order_sum",
+			"value": "5000",
+			"type": "string"
+		},
+		{
+			"key": "second_order_sum",
+			"value": "7000",
+			"type": "string"
+		},
+		{
+			"key": "user_name",
+			"value": "user1",
+			"type": "string"
+		},
+		{
+			"key": "user_pswd",
+			"value": "pswd1",
+			"type": "string"
+		}
+	]
+}
